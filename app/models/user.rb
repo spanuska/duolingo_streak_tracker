@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 	require 'open-uri'
 	# name, site_streak, language, language_level
 
+	validates :name, uniqueness: true
 	has_many :language_progresses
 
 	attr_accessor :api_hash
