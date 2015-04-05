@@ -1,0 +1,35 @@
+
+<h3>Platinum</h3>
+  <ul>  
+    <% @platinums.each do |user| %>
+      <li><%= "#{user.name}, #{user.streak}" %></li>
+    <% end %>
+  </ul>
+
+<h3>Gold</h3>
+  <ul>  
+    <% @golds.each do |user| %>
+      <li><%= "#{user.name}, #{user.streak}" %></li>
+    <% end %>
+  </ul>
+
+<h3>Silver</h3>
+  <ul>  
+    <% @silvers.each do |user| %>
+      <li><%= "#{user.name}, #{user.streak}" %></li>
+    <% end %>
+  </ul>
+
+<h3>Bronze</h3>
+  <ul>  
+    <% @bronzes.each do |user| %>
+      <li><%= "#{user.name}, #{user.streak}" %></li>
+    <% end %>
+  </ul>
+
+<h3>Soon-To_Be</h3>
+  <ul>  
+    <% @soons.each do |user| %>
+      <li><%= "#{user.name}, #{user.streak}" %></li>
+    <% end %>
+  </ul>
