@@ -8,6 +8,11 @@ class User < ActiveRecord::Base
 
 	attr_accessor :api_hash
 
+	def populate_from_refresh(api_hash)
+		self.update(streak: api_hash["site_streak"])
+		self.create_language_progresses(api_hash)
+	end
+
 	def self.populate(duo_username)
 		api_hash = self.api_call(duo_username)
 		binding.pry

@@ -19,8 +19,13 @@ namespace :users do
 
   task refresh_from_api: :environment do
     User.find_each(batch_size: 10) do |user|
+      begin
+        api_hash = User.api_call(user.name)
+      rescue
+        next
+      end
+      User.find_by_name(user.name).populate_from_refresh(api_hash)
+      puts 'refreshed ' + user.name + ' from the api'
     end
-
-
   end
 end
