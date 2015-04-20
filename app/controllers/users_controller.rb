@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
 	def index
 		# binding.pry
+		
 		@platinums = User.platinum
 		@golds = User.gold
 		@silvers = User.silver
