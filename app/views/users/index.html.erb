@@ -1,52 +1,15 @@
 <div class="container">
 <div class="card">
 
-<h3>Platinum</h3><button>Click to show/hide table</button>
-  <table id="platinum-table" class= "table table-striped table-bordered table-condensed">
-    <tr>
-      <th>User Name</th><th>Streak Length</th>
-    </tr>  
-    <% @platinums.each do |user| %>
-    <tr>
-      <td><%= "#{user.name}"%></td><td><%= "#{user.streak}" %></td>
-    </tr>
-    <% end %>
-  </table>
+<%= render 'category_table', category: "platinum", category_instance: @platinums %>
 
-<h3>Gold</h3>
-  <table id="gold-table" class= "table table-striped table-bordered table-condensed">  
-    <% @golds.each do |user| %>
-    <tr>
-      <td><%= "#{user.name}"%></td><td><%= "#{user.streak}" %></td>
-    </tr>
-    <% end %>
-  </table>
+<%= render 'category_table', category: "gold", category_instance: @golds %>
 
-<h3>Silver</h3>
-  <table id="silver-table" class= "table table-striped table-bordered table-condensed">  
-    <% @silvers.each do |user| %>
-    <tr>
-      <td><%= "#{user.name}"%></td><td><%= "#{user.streak}" %></td>
-    </tr>
-    <% end %>
-  </table>
+<%= render 'category_table', category: "silver", category_instance: @silvers %>
 
-<h3>Bronze</h3>
-  <table id="bronze-table" class= "table table-striped table-bordered table-condensed">  
-    <% @bronzes.each do |user| %>
-    <tr>
-      <td><%= "#{user.name}"%></td><td><%= "#{user.streak}" %></td>
-    </tr>
-    <% end %>
-  </table>
+<%= render 'category_table', category: "bronze", category_instance: @bronzes %>
 
-<h3>Soon-To-Be</h3>
-  <table id="soon-to-be-table" class= "table table-striped table-bordered table-condensed">  
-    <% @soons.each do |user| %>
-    <tr>
-      <td><%= "#{user.name}"%></td><td><%= "#{user.streak}" %></td>
-    </tr>
-    <% end %>
-  </table>
+<%= render 'category_table', category: "soon-to-be", category_instance: @soons %>
+
 </div>
 </div>
