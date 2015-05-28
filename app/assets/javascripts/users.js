@@ -1,17 +1,7 @@
-function toggle(obj) {
-
-	var element = document.getElementById(obj);
-
-	if ( element.style.display != 'none' ) {
-
-		element.style.display = 'none';
-
-	}
-
-	else {
-
-		element.style.display = '';
-
-	}
-
-}
+$(function(){// When page is loaded fire me. Alias of $(document).ready()
+  $("button").on("click", function(){
+  	$(".platinum-table").toggle(); 
+  	debugger
+  	console.log("Clicked a button"); 
+	});
+});
