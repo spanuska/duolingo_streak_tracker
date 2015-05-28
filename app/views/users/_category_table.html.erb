@@ -1,17 +1,19 @@
-<h3><%= category.capitalize %></h3><button id="<%= category %>-button">Click to show/hide table</button>
+<div>
+	<h3><%= category.capitalize %></h3><button id="<%= category %>-button">Click to show/hide table</button>
 
-<table id="<%= category %>-table" class="table table-striped table-bordered table-condensed">
-	
-	<tr>
-		<th>User Name</th><th>Streak Length</th>
-	</tr>  
-	
-	<% category_instance.each do |user| %>
-	
-	<tr>
-		<td><%= "#{user.name}"%></td><td><%= "#{user.streak}" %></td>
-	</tr>
-	
-	<% end %>
-	
-</table>
+	<table id="<%= category %>-table" class="table table-striped table-bordered table-condensed">
+
+		<tr>
+			<th>User Name</th><th>Streak Length</th>
+		</tr>  
+
+		<% category_instance.each do |user| %>
+
+		<tr>
+			<td><%= "#{user.name}"%></td><td><%= "#{user.streak}" %></td>
+		</tr>
+
+		<% end %>
+
+	</table>
+</div>

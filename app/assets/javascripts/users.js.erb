@@ -1,23 +1,5 @@
 $(function(){
-  $("#platinum-button").click(function(){
-  	$("#platinum-table").toggle(); 
-	});
-
-	$("#gold-button").click(function(){
-  	$("#gold-table").toggle(); 
-	});
-
-	$("#silver-button").click(function(){
-  	$("#silver-table").toggle(); 
-	});
-
-	$("#bronze-button").click(function(){
-  	$("#bronze-table").toggle(); 
-	});
-
-	$("#soon-to-be-button").click(function(){
-  	$("#soon-to-be-table").toggle(); 
+	$("button").click(function(){
+		$(this).next().toggle(); 
 	});
 });
-
-
