@@ -21,8 +21,8 @@ class User < ActiveRecord::Base
 		end
 		current = self.find_or_create_by(name: @api_hash["username"])
 		current.update(streak: @api_hash["site_streak"])
-		# @languages_where_learning_is_true = current.find_languages_where_learning_is_true
-		# current.update_language_progresses
+		languages_where_learning_is_true = current.find_languages_where_learning_is_true(@api_hash)
+		current.update_language_progresses(languages_where_learning_is_true)
 	end
 	
 	def self.api_call(duo_username)
@@ -31,29 +31,23 @@ class User < ActiveRecord::Base
 	end
 
 #-- INSTANCE METHODS
-	def populate_from_refresh
-		self.update(streak: @api_hash["site_streak"])
+	def populate_from_refresh(api_hash)
+		# Why can't I use the instance variables @api_hash here??
+		self.update(streak: api_hash["site_streak"])
 		self.create_language_progresses
 	end
 
-	# def find_languages_where_learning_is_true
-	# 	@api_hash["languages"].keep_if do |language_hash| 
-	# 		language_hash["learning"] == true
-	# 	end
-	# end
+	def find_languages_where_learning_is_true(api_hash)
+		api_hash["languages"].keep_if do |language_hash| 
+			language_hash["learning"] == true
+		end
+	end
 
-	# def update_language_progresses
-	# 	@languages_where_learning_is_true.collect do |language| 
-	# 		lang_prog = LanguageProgress.find_or_create_by(name: language["language_string"], user_id: self.id)
-	# 		lang_prog.update(points: language["points"], level: language["level"])
-	# 	end
-	# end
-
-	# def create_language_progresses
-	# 	languages_where_learning_is_true.collect do |language|
-	# 		langprog = LanguageProgress.find_or_create_by(user_id: self.id, name: language["language_string"])
-	# 		langprog.update(level: language["level"], points: language["points"])
-	# 	end
-	# end
+	def update_language_progresses(languages_where_learning_is_true)
+		languages_where_learning_is_true.collect do |language| 
+			lang_prog = LanguageProgress.find_or_create_by(name: language["language_string"], user_id: self.id)
+			lang_prog.update(points: language["points"], level: language["level"])
+		end
+	end
 
 end
