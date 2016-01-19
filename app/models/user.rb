@@ -33,11 +33,6 @@ class User < ActiveRecord::Base
 		JSON.load(open(url))
 	end
 
-  def self.platinum
-    self.where('streak >= 730')
-  end
-
-
 #-- INSTANCE METHODS
 	def create_language_progresses(api_hash)
 		api_hash["languages"].collect do |language|
