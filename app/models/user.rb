@@ -12,20 +12,17 @@ class User < ActiveRecord::Base
 	scope :bronze, -> { where(streak: 365..399) }
 	scope :soon_to_be, -> { where(streak: 300..364) }
 
-	attr_accessor :api_hash
-
-	def populate_from_refresh(api_hash)
-		self.update(streak: api_hash["site_streak"])
-		self.create_language_progresses(api_hash)
-	end
+	attr_accessor :api_hash, :languages_where_learning_is_true
 
 #-- CLASS METHODS
 	def self.populate(duo_username)
-		api_hash = self.api_call(duo_username)
-		binding.pry
-		current = self.find_or_create_by(name: api_hash["username"])
-		current.update(streak: api_hash["site_streak"])
-		current.create_language_progresses(api_hash)
+		@api_hash = self.api_call(duo_username).select do |k, v|
+			k == "username" || k == "site_streak" || k == "languages"
+		end
+		current = self.find_or_create_by(name: @api_hash["username"])
+		current.update(streak: @api_hash["site_streak"])
+		# @languages_where_learning_is_true = current.find_languages_where_learning_is_true
+		# current.update_language_progresses
 	end
 	
 	def self.api_call(duo_username)
@@ -34,17 +31,29 @@ class User < ActiveRecord::Base
 	end
 
 #-- INSTANCE METHODS
-	def create_language_progresses(api_hash)
-		api_hash["languages"].collect do |language|
-			if language["learning"]
-				self.language_progresses.create( #change this to find_or_create_by username, then 
-						learning: language["learning"],
-						name: language["language_string"],
-						level: language["level"],
-						points: language["points"]
-					)
-			end
-		end
+	def populate_from_refresh
+		self.update(streak: @api_hash["site_streak"])
+		self.create_language_progresses
 	end
+
+	# def find_languages_where_learning_is_true
+	# 	@api_hash["languages"].keep_if do |language_hash| 
+	# 		language_hash["learning"] == true
+	# 	end
+	# end
+
+	# def update_language_progresses
+	# 	@languages_where_learning_is_true.collect do |language| 
+	# 		lang_prog = LanguageProgress.find_or_create_by(name: language["language_string"], user_id: self.id)
+	# 		lang_prog.update(points: language["points"], level: language["level"])
+	# 	end
+	# end
+
+	# def create_language_progresses
+	# 	languages_where_learning_is_true.collect do |language|
+	# 		langprog = LanguageProgress.find_or_create_by(user_id: self.id, name: language["language_string"])
+	# 		langprog.update(level: language["level"], points: language["points"])
+	# 	end
+	# end
 
 end
