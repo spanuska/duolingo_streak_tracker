@@ -11,7 +11,6 @@ class UsersController < ApplicationController
       bronzes: User.bronze,
       hopefuls: User.hopeful
     }
-    # @users = [{platinums: [roger, john, bethanne]}]
     #respond_to do |format|
       #format.html
       #format.json { render :text => "Successfully Done!" }

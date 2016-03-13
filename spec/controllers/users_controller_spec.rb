@@ -13,7 +13,6 @@ RSpec.describe UsersController, type: :controller do
       @bethanne = create(:bethanne)
       @hopeful_user = create(:hopeful_user)
       @silver_user = create(:silver_user)
-
     end
     let(:john) { @john }
     let(:skylar) { @skylar }
@@ -57,12 +56,14 @@ RSpec.describe UsersController, type: :controller do
       request.accept = "application/json"
       get :index
       json = JSON.parse(response.body)
-      johnkpaul_deserialized = json['users'].find {|x| x['username'] == 'johnkpaul'}
-      expect(json['users'].length).to eq(4)
-      expect(johnkpaul_deserialized['languages'].length).to eq(3)
-      expect(johnkpaul_deserialized['languages']).to include(Hash["name", "french"])
-      expect(johnkpaul_deserialized['languages']).to include(Hash["name", "spanish"])
-      expect(johnkpaul_deserialized['languages']).to include(Hash["name", "german"])
+      john_deserialized = json['platinums'].find {|hash| hash["username"] == "johnkpaul"}
+      expect(json['platinums'].length).to eq(2)
+      expect(json['platinums']).to include(john_deserialized)
+      expect(john_deserialized["languages"]).to include(Hash["name", "spanish"])
+      expect(json['hopefuls'].length).to eq(1)
+      expect(json['hopefuls'][0]["username"]).to eq("rice_bowl")
+      # expect(johnkpaul_deserialized['languages']).to include(Hash["name", "spanish"])
+      # expect(johnkpaul_deserialized['languages']).to include(Hash["name", "german"])
     end
   end
 
