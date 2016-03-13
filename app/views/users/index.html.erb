@@ -1,30 +1,27 @@
-<p id="notice"><%= notice %></p>
+<script type="text/javascript" src="https://code.angularjs.org/1.5.0/angular.js"></script>
 
-<h1>Listing Users</h1>
+<div ng-app="dst">
+  <div ng-controller="usersController">
+     <ul>
+       <li ng-repeat="user in users">
+          The username is {{user.username}}
+       </li>
+     </ul>
 
-<table>
-  <thead>
-    <tr>
-      <th>Username</th>
-      <th>Days</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  </div>
+</div>
 
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td class="username"><%= user.username %></td>
-        <td><%= user.days %></td>
-        <td>languages learned: <%= user.languages %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<script>
+  var dst = angular.module('dst',[]);
+  dst.controller('usersController', function($scope, $http){
+    $http({
+      method: 'GET',
+      url: '/users.json'
+    }).then(function successCallback(response) {
+         $scope.users = response.data.users;
+      }, function errorCallback(response) {
+      });
+  });
+  
 
-<br>
-
-<%= link_to 'New User', new_user_path %>
+</script>
