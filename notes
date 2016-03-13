@@ -1,0 +1,10 @@
+Actors
+1. Duolingo User (DU)
+2. Website Viewer (WV)
+
+Use Cases
+1. WV should see a lost DUs from list (johnkpaul, slpengy2, ...)
+2. WV should be able to see DUs number of consecutive days of D usage
+3. WV should be able to see DUs sorted by number of consecutive days
+4. WV should be able to see each language completed by each DU
+
