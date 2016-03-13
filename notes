@@ -7,4 +7,27 @@ Use Cases
 2. WV should be able to see DUs number of consecutive days of D usage
 3. WV should be able to see DUs sorted by number of consecutive days
 4. WV should be able to see each language completed by each DU
+5. WV should be able to see DUs grouped into categories by 100+, 200+, 365+ and 720+ days (bronze, silver, gold, platinum)
 
+Architectural layers
+1. Domain Model
+2. REST API
+3. Angular Single Page Web Application
+4. DU Batch Refresher 
+
+/api/users
+# Should respond with a string of JSON and that JSON should be the user data 
+# in our case number of days and languages
+
+{
+  "users": [{
+      "username": "slpengy2",
+      "days": 365,
+      "languages": []
+    },
+    {
+    "username": "johnkpaul",
+      "days": 720,
+      "languages": []
+    }]
+}

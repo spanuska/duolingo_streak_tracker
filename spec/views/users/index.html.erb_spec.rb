@@ -4,19 +4,24 @@ RSpec.describe "users/index", type: :view do
   before(:each) do
     assign(:users, [
       User.create!(
-        :username => "Username",
-        :days => 1
+        :username => "johnkpaul",
+        :days => 12
       ),
       User.create!(
-        :username => "Username",
-        :days => 1
+        :username => "skylar",
+        :days => 365
       )
     ])
   end
 
   it "renders a list of users" do
     render
-    assert_select "tr>td", :text => "Username".to_s, :count => 2
-    assert_select "tr>td", :text => 1.to_s, :count => 2
+    assert_select ".username" do |elements|
+      elements.each_with_index do |el, index|
+        assert_select 'td', {text: 'skylar'}
+        assert_select 'td', {text: 'johnkpaul'}
+      end
+    end
+
   end
 end

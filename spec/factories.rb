@@ -10,7 +10,7 @@ FactoryGirl.define do
   end
   factory :bethanne, class: User do
     username "bethanne"
-    days  32
+    days  102
   end
   factory :roger, class: User do
     username "roger"
