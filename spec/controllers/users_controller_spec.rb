@@ -11,11 +11,16 @@ RSpec.describe UsersController, type: :controller do
       @skylar = create(:skylar)
       @roger = create(:roger)
       @bethanne = create(:bethanne)
+      @hopeful_user = create(:hopeful_user)
+      @silver_user = create(:silver_user)
+
     end
     let(:john) { @john }
     let(:skylar) { @skylar }
     let(:roger) { @roger }
     let(:bethanne) { @bethanne }
+    let(:hopeful_user) { @hopeful_user }
+    let(:silver_user) { @silver_user }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -23,12 +28,30 @@ RSpec.describe UsersController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "assigns all users as @users" do
+    it "groups @users by platinum status" do
       get :index, {}, valid_session
-      expect(assigns(:users)).to include(@skylar)
-      expect(assigns(:users)).to include(@john)
-      expect(assigns(:users)).to include(@roger)
-      expect(assigns(:users)).to include(@bethanne)
+      expect(assigns(:users)[:platinums]).to_not include(@skylar)
+      expect(assigns(:users)[:platinums]).to include(@john)
+    end
+    it "groups @users by gold status" do
+      get :index, {}, valid_session
+      expect(assigns(:users)[:golds]).to_not include(@john)
+      expect(assigns(:users)[:golds]).to include(@skylar)
+    end
+    it "groups @users by silver status" do
+      get :index, {}, valid_session
+      expect(assigns(:users)[:silvers]).to_not include(@john)
+      expect(assigns(:users)[:silvers]).to include(@silver_user)
+    end
+    it "groups @users by bronze status" do
+      get :index, {}, valid_session
+      expect(assigns(:users)[:bronzes]).to_not include(@john)
+      expect(assigns(:users)[:bronzes]).to include(@bethanne)
+    end
+    it "groups @users by hopeful status" do
+      get :index, {}, valid_session
+      expect(assigns(:users)[:hopefuls]).to_not include(@john)
+      expect(assigns(:users)[:hopefuls]).to include(@hopeful_user)
     end
     it "sends specific json when GETing /users.json" do
       request.accept = "application/json"

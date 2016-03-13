@@ -20,6 +20,10 @@ FactoryGirl.define do
     username "rice_bowl"
     days 3
   end
+  factory :silver_user, class: User do
+    username "chester"
+    days 216
+  end
   factory :spanish, class: Language do
     name "spanish"
   end

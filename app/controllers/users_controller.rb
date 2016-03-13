@@ -4,7 +4,14 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = {
+      platinums: User.platinum,
+      golds: User.gold,
+      silvers: User.silver,
+      bronzes: User.bronze,
+      hopefuls: User.hopeful
+    }
+    # @users = [{platinums: [roger, john, bethanne]}]
     #respond_to do |format|
       #format.html
       #format.json { render :text => "Successfully Done!" }
