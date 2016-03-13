@@ -16,6 +16,10 @@ FactoryGirl.define do
     username "roger"
     days  100000
   end
+  factory :hopeful_user, class: User do
+    username "rice_bowl"
+    days 3
+  end
   factory :spanish, class: Language do
     name "spanish"
   end

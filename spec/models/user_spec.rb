@@ -10,14 +10,16 @@ RSpec.describe User, type: :model do
       @skylar = create(:skylar)
       @roger = create(:roger)
       @bethanne = create(:bethanne)
+      @hopeful_user = create(:hopeful_user)
     end
     let(:john) { @john }
     let(:skylar) { @skylar }
     let(:roger) { @roger }
     let(:bethanne) { @bethanne }
+    let(:hopeful_user) { @hopeful_user }
 
     it "should create a sorted list of users by days" do
-      expect(User.get_all_sorted_by_days).to eq([roger, john, skylar, bethanne])
+      expect(User.get_all_sorted_by_days).to eq([roger, john, skylar, bethanne, hopeful_user])
     end
 
     it "should have a languages array" do
@@ -54,6 +56,14 @@ RSpec.describe User, type: :model do
       expect(bronzes).to_not include(john)
       expect(bronzes).to_not include(roger)
       expect(bronzes).to include(bethanne)
+    end
+    it "should have hopeful users with all more than 0 days and less than 100 days" do
+      hopefuls = User.hopeful
+      expect(hopefuls).to_not include(skylar)
+      expect(hopefuls).to_not include(john)
+      expect(hopefuls).to_not include(roger)
+      expect(hopefuls).to_not include(bethanne)
+      expect(hopefuls).to include(hopeful_user)
     end
   end
 

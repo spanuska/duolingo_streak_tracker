@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   scope :gold, -> {where("days > 364 and days <= 719")} 
   scope :silver, -> {where("days > 199 and days <= 364")} 
   scope :bronze, -> {where("days > 99 and days <= 199")} 
+  scope :hopeful, -> {where("days >= 0 and days <= 99")}
   def self.get_all_sorted_by_days
     self.order(days: :desc)
   end
