@@ -62,8 +62,6 @@ RSpec.describe UsersController, type: :controller do
       expect(john_deserialized["languages"]).to include(Hash["name", "spanish"])
       expect(json['hopefuls'].length).to eq(1)
       expect(json['hopefuls'][0]["username"]).to eq("rice_bowl")
-      # expect(johnkpaul_deserialized['languages']).to include(Hash["name", "spanish"])
-      # expect(johnkpaul_deserialized['languages']).to include(Hash["name", "german"])
     end
   end
 
