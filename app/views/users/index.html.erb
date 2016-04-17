@@ -2,17 +2,17 @@
 
 <div ng-app="dst">
   <div ng-controller="usersController">
-     <ul>
-       <li ng-repeat="(key, category) in userCategories">
-          The key is {{key}}
-          <ul>
-             <li ng-repeat="user in category" class="username">
-             the username is {{user.username}}
-             </li>
-          </ul>
-       </li>
-     </ul>
-
+    <div ng-repeat="(key, category) in userCategories" ng-class="category-{{key}}">
+      <table >
+        <tr>
+          <th>{{key | uppercase}}</th>
+        </tr>
+        <tr ng-repeat="user in category">
+          <td>{{user.username}}</td>
+        </tr>
+      </table>
+      </br>
+    </div>
   </div>
 </div>
 
@@ -24,7 +24,6 @@
       url: '/users.json'
     }).then(function successCallback(response) {
          $scope.userCategories = response.data;
-
       }, function errorCallback(response) {
       });
   });
