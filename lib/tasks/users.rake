@@ -1,8 +1,9 @@
 require 'open-uri'
 
-namespace :users do
-  task import_from_thread: :environment do
 
+namespace :users do
+  desc "Scrapes unofficial hall of fame thread to get usernames"
+  task import_from_thread: :environment do
     url = "https://www.duolingo.com/comments/2933824"
     json = JSON.load(open(url))
     message = json["marked_down_message"]
@@ -17,6 +18,7 @@ namespace :users do
 
   end
 
+  desc "Calls unofficial Duolingo api to get up-to-date user data"
   task refresh_from_api: :environment do
     User.find_each(batch_size: 10) do |user|
       begin
