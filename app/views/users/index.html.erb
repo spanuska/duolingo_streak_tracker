@@ -3,8 +3,13 @@
 <div ng-app="dst">
   <div ng-controller="usersController">
      <ul>
-       <li ng-repeat="user in users">
-          The username is {{user.username}}
+       <li ng-repeat="(key, category) in userCategories">
+          The key is {{key}}
+          <ul>
+             <li ng-repeat="user in category" class="username">
+             the username is {{user.username}}
+             </li>
+          </ul>
        </li>
      </ul>
 
@@ -18,7 +23,8 @@
       method: 'GET',
       url: '/users.json'
     }).then(function successCallback(response) {
-         $scope.users = response.data.users;
+         $scope.userCategories = response.data;
+
       }, function errorCallback(response) {
       });
   });
