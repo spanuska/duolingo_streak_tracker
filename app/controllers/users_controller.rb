@@ -5,11 +5,11 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = {
-      platinums: User.platinum,
-      golds: User.gold,
-      silvers: User.silver,
-      bronzes: User.bronze,
-      hopefuls: User.hopeful
+      platinums: User.includes(:languages).platinum,
+      golds: User.includes(:languages).gold,
+      silvers: User.includes(:languages).silver,
+      bronzes: User.includes(:languages).bronze,
+      hopefuls: User.includes(:languages).hopeful
     }
     #respond_to do |format|
       #format.html
