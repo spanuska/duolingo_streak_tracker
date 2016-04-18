@@ -1,6 +1,14 @@
 <script type="text/javascript" src="https://code.angularjs.org/1.5.0/angular.js"></script>
 
+
 <div ng-app="dst">
+  <div ng-controller="formController">
+    <h3>Add your username to Duolingo Streak Tracker!</h3>
+    <form novalidate class="simple-form" ng-submit="addUser(user)">
+      Duolingo Username: <input type="text" ng-model="user.username" /><br />
+      <input type="submit" value="Add Me" />
+    </form>
+  </div>
   <div ng-controller="usersController">
     <div ng-repeat="(key, category) in userCategories" ng-class="category-{{key}}">
       <table >
@@ -28,6 +36,20 @@
       }, function errorCallback(response) {
       });
   });
-  
 
+  dst.controller('formController', function($scope, $http) {
+    $scope.addUser = function(){
+      $scope.user = {
+        'username' : $scope.user.username
+      };
+      $http({
+        method: 'POST',
+        url: '/users.json',
+        data: $scope.user
+      }).then(function successCallback(response) {
+         $scope.userCategories = response.data;
+      }, function errorCallback(response) {
+      });
+    };
+  });
 </script>
