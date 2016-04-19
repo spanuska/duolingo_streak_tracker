@@ -27,28 +27,38 @@
 
 <script>
   var dst = angular.module('dst',[]);
-  dst.controller('usersController', function($scope, $http){
-    $http({
+  dst.controller('usersController', function($scope, $rootScope, $http){
+    
+    var loadUsers = function(){
+      $http({
       method: 'GET',
       url: '/users.json'
     }).then(function successCallback(response) {
          $scope.userCategories = response.data;
+         //console.log($scope.userCategories);
       }, function errorCallback(response) {
       });
+    };
+
+    $rootScope.$on('addUser', function() {
+      loadUsers();
+      //console.log("from addUser")
+    });
+
+    loadUsers();
+    
   });
 
-  dst.controller('formController', function($scope, $http) {
+  dst.controller('formController', function($scope, $rootScope, $http) {
     $scope.addUser = function(){
       $scope.user = {
         'username' : $scope.user.username
       };
+      $rootScope.$broadcast('addUser');
       $http({
         method: 'POST',
         url: '/users.json',
         data: $scope.user
-      }).then(function successCallback(response) {
-         $scope.userCategories = response.data;
-      }, function errorCallback(response) {
       });
     };
   });
