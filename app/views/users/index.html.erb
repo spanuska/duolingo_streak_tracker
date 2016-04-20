@@ -35,14 +35,13 @@
       url: '/users.json'
     }).then(function successCallback(response) {
          $scope.userCategories = response.data;
-         //console.log($scope.userCategories);
+         console.log($scope.userCategories);
       }, function errorCallback(response) {
       });
     };
 
-    $rootScope.$on('addUser', function() {
+    $rootScope.$on('a user has been added', function() {
       loadUsers();
-      //console.log("from addUser")
     });
 
     loadUsers();
@@ -54,11 +53,13 @@
       $scope.user = {
         'username' : $scope.user.username
       };
-      $rootScope.$broadcast('addUser');
       $http({
         method: 'POST',
         url: '/users.json',
         data: $scope.user
+      }).then(function successCallback(response) {
+        $rootScope.$broadcast('a user has been added');
+      }, function errorCallback(response){
       });
     };
   });
