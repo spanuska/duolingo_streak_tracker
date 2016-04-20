@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
       self.save
       end
     else
-      self.errors.add(:username, 'Duolingo couldn\'t find this username! Check the spelling and try again?')
+      self.errors.add(:username, "Duolingo couldn't find the username: #{username}!")
       return false
     end
 

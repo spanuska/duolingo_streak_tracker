@@ -6,6 +6,9 @@
     <h3>Add your username to Duolingo Streak Tracker!</h3>
     <form novalidate class="simple-form" ng-submit="addUser(user)">
       Duolingo Username: <input type="text" ng-model="user.username" /><br />
+      <div ng-show="serverErrorMessage">
+        {{ serverErrorMessage }}
+      </div>
       <input type="submit" value="Add Me" />
     </form>
   </div>
@@ -60,8 +63,13 @@
       }).then(function successCallback(response) {
         $rootScope.$broadcast('a user has been added');
       }, function errorCallback(response){
-        // response.data.username[0] => "Duolingo couldn't find this username! Check the spelling and try again?"
-        debugger;
+        if (response.status == 422) {
+          $scope.serverErrorMessage = response.data.username[0] + " Check the spelling and try again?"
+          // response.data.username[0] => "Duolingo couldn't find this username! Check the spelling and try again?"
+        } else {
+          // generic error message
+        }
+
       });
     };
   });
