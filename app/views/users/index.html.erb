@@ -60,6 +60,8 @@
       }).then(function successCallback(response) {
         $rootScope.$broadcast('a user has been added');
       }, function errorCallback(response){
+        // response.data.username[0] => "Duolingo couldn't find this username! Check the spelling and try again?"
+        debugger;
       });
     };
   });

@@ -34,10 +34,9 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.find_or_create_by(user_params)
-    @user.populate_from_duolingo_api
+    @user = User.find_or_initialize_by(user_params)
     respond_to do |format|
-      if @user.save
+      if @user.populate_from_duolingo_api
         format.html { redirect_to action: 'index' }
         format.json { render :show, status: :ok, location: @user }
       else
