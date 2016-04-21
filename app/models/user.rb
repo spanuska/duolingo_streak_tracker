@@ -14,23 +14,31 @@ class User < ActiveRecord::Base
   def populate_from_duolingo_api
     url = "https://api.duolingo.com/users/" + self.username
     if valid_json_response?(url)
-      json = JSON.load(open(url))
-      streak_days = json["site_streak"]
-      languages = json["languages"].select { |l| l["learning"] }
-      languages.each do |l|
-        language_instance = Language.find_or_create_by(name: l["language_string"])
-        self.languages << language_instance unless self.languages.include? language_instance
-      self.days = streak_days
-      self.save
-      end
+      json = parse_json(url)
+      assign_attributes_from_duo_api(json)
     else
       self.errors.add(:username, "Duolingo couldn't find the username: #{username}!")
       return false
     end
-
   end
 
   private
+
+  def assign_attributes_from_duo_api(json)
+    self.days = json["site_streak"]
+    languages = json["languages"].select { |l| l["learning"] }
+    languages.each do |l|
+      language_instance = Language.find_or_create_by(name: l["language_string"])
+      self.languages << language_instance unless self.languages.include? language_instance
+    end
+    self.save
+  end
+
+  def parse_json(url)
+    uri = URI(url)
+    response = Net::HTTP.get(uri)
+    JSON.parse(response)
+  end
   
   def valid_json_response?(url)
     uri = URI(url)
