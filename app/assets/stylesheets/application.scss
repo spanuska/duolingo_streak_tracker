@@ -1,2 +1,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+[ng-class*="category-"] {
+	display: block;
+	max-height: 400px;
+	overflow: scroll;
+	margin-bottom: 25px;
+}

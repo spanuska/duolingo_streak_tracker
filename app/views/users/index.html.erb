@@ -22,7 +22,7 @@
   </div>
   <div ng-controller="formController" class="form-group col-xs-6 col-md-4">
     <h3>Add your username to Duolingo Streak Tracker!</h3>
-    <form novalidate class="simple-form" ng-submit="addUser(user)">
+    <form novalidate name="addUserForm" class="simple-form" ng-submit="addUser(user)">
       Duolingo Username: <input type="text" ng-model="user.username" /><br />
       <div ng-show="serverErrorMessage">
         {{ serverErrorMessage }}
@@ -57,15 +57,23 @@
 
   dst.controller('formController', function($scope, $rootScope, $http) {
     $scope.addUser = function(){
+      
       $scope.user = {
         'username' : $scope.user.username
       };
+
+      $scope.reset = function() {
+        $scope.user = angular.copy($scope.master);
+      };
+
       $http({
         method: 'POST',
         url: '/users.json',
         data: $scope.user
       }).then(function successCallback(response) {
         $rootScope.$broadcast('a user has been added');
+        debugger;
+        $scope.reset();
       }, function errorCallback(response){
         if (response.status == 422) {
           $scope.serverErrorMessage = response.data.username[0] + " Check the spelling and try again?"
