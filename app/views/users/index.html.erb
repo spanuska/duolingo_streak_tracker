@@ -1,22 +1,12 @@
 <script type="text/javascript" src="https://code.angularjs.org/1.5.0/angular.js"></script>
 
 
-<div ng-app="dst">
-  <div ng-controller="formController">
-    <h3>Add your username to Duolingo Streak Tracker!</h3>
-    <form novalidate class="simple-form" ng-submit="addUser(user)">
-      Duolingo Username: <input type="text" ng-model="user.username" /><br />
-      <div ng-show="serverErrorMessage">
-        {{ serverErrorMessage }}
-      </div>
-      <input type="submit" value="Add Me" />
-    </form>
-  </div>
-  <div ng-controller="usersController">
+<div ng-app="dst" class="row">
+  <div ng-controller="usersController" class="col-xs-12 col-sm-6 col-md-8">
     <div ng-repeat="(key, category) in userCategories" ng-class="category-{{key}}">
-      <table >
+      <table class="table table-striped table-bordered table-condensed">
         <tr>
-          <th>{{key | uppercase}}</th>
+          <th colspan="2">{{key | uppercase}}</th>
         </tr>
         <tr ng-repeat="user in category">
           <td>{{user.username}}</td>
@@ -25,6 +15,16 @@
       </table>
       </br>
     </div>
+  </div>
+  <div ng-controller="formController" class="form-group col-xs-6 col-md-4">
+    <h3>Add your username to Duolingo Streak Tracker!</h3>
+    <form novalidate class="simple-form" ng-submit="addUser(user)">
+      Duolingo Username: <input type="text" ng-model="user.username" /><br />
+      <div ng-show="serverErrorMessage">
+        {{ serverErrorMessage }}
+      </div>
+      <input type="submit" value="Add Me" />
+    </form>
   </div>
 </div>
 
