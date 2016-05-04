@@ -86,6 +86,7 @@ GEM
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
+    newrelic_rpm (3.11.1.284)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     pg (0.18.1)
@@ -187,6 +188,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.0)
   jbuilder (~> 2.0)
   jquery-rails
+  newrelic_rpm
   pg
   pry-rails
   rails (= 4.2.2)
