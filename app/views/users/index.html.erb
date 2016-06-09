@@ -11,7 +11,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="user in category">
+          <tr ng-repeat="user in category | orderBy: 'days' : reverse = true">
             <td class="username">{{user.username}}</td>
             <td class="streak-days">{{user.days}}</td>
           </tr>
